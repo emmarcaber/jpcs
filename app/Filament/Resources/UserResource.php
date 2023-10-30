@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
+use App\Filament\Resources\UserResource\RelationManagers\RolesRelationManager;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
@@ -20,7 +21,7 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user';
 
     public static function form(Form $form): Form
     {
@@ -31,7 +32,7 @@ class UserResource extends Resource
                         'required',
                         'min:10',
                         'max:255',
-                        'unique:users,email'
+                        'exclude:users,email'
                     ]),
 
                 TextInput::make('name')
@@ -43,18 +44,13 @@ class UserResource extends Resource
 
                 TextInput::make('password')
                     ->rules([
-                        'required',
                         'min:8',
                         'max:255',
-                    ])->password(),
-
-                TextInput::make('repeat-password')
-                    ->rules([
-                        'required',
-                        'min:8',
-                        'max:255',
-                        'same:password'
-                    ])->password(),
+                        'nullable'
+                    ])
+                    ->dehydrated(fn($state) => filled($state))
+                    ->dehydrateStateUsing(fn($state) => bcrypt($state))
+                    ->password(),
 
                 Select::make('position_id')
                     ->searchable()
@@ -91,7 +87,7 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RolesRelationManager::class,
         ];
     }
 
