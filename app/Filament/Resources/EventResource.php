@@ -34,7 +34,9 @@ class EventResource extends Resource
             ->schema([
                 Grid::make(3)->schema([
                     TextInput::make('name')
+                        ->placeholder('Event Name')
                         ->rules(['required', 'min:5', 'max:255']),
+
                     // TODO: Make start date not be in conflict with the start date of any other events
                     DatePicker::make('start_date')
                         ->minDate(now())
@@ -42,12 +44,15 @@ class EventResource extends Resource
                         ->maxDate(now()->addYears(2))
                         ->closeOnDateSelection(),
                     TextInput::make('duration')
+                        ->label('Duration (Days)')
+                        ->placeholder('Duration (Days)')
                         ->numeric()
                         ->rules(['min:1', 'max:5', 'required'])
                         ->label("Duration (Days)"),
                 ]),
                 Grid::make(1)->schema([
                     Textarea::make('description')
+                        ->placeholder('Brief Description of Event')
                         ->rules(['required', 'min:20', 'max:64000']),
                 ]),
 
@@ -77,8 +82,10 @@ class EventResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
-                TextColumn::make('description'),
+                TextColumn::make('name')
+                    ->limit(20),
+                TextColumn::make('description')
+                    ->limit(20),
                 TextColumn::make('start_date'),
                 IconColumn::make('allow_registration')
                     ->boolean()
