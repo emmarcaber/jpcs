@@ -6,6 +6,7 @@ use App\Filament\Resources\VenueResource\Pages;
 use App\Filament\Resources\VenueResource\RelationManagers;
 use App\Models\Venue;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -25,7 +26,12 @@ class VenueResource extends Resource
     {
         return $form
             ->schema([
-
+                Select::make('Event')
+                    ->relationship('event', 'name')
+                    ->disabled(),
+                TextInput::make('name')
+                    ->placeholder('Venue Name')
+                    ->rules(['required', 'min:5', 'max:255'])
             ]);
     }
 
@@ -33,7 +39,9 @@ class VenueResource extends Resource
     {
         return $table
             ->columns([
-
+                TextColumn::make('event.name'),
+                TextColumn::make('name')->
+                    label('Venue')
             ])
             ->filters([
                 //
