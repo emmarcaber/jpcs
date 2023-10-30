@@ -6,6 +6,7 @@ use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -23,7 +24,35 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('email')
+                    ->rules([
+                        'required',
+                        'min:10',
+                        'max:255',
+                        'unique:users,email'
+                    ]),
+
+                TextInput::make('name')
+                    ->rules([
+                        'required',
+                        'min:5',
+                        'max:255',
+                    ]),
+
+                TextInput::make('password')
+                    ->rules([
+                        'required',
+                        'min:8',
+                        'max:255',
+                    ])->password(),
+
+                TextInput::make('repeat-password')
+                    ->rules([
+                        'required',
+                        'min:8',
+                        'max:255',
+                        'same:password'
+                    ])->password(),
             ]);
     }
 
@@ -31,7 +60,7 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                //
+
             ])
             ->filters([
                 //
@@ -48,14 +77,14 @@ class UserResource extends Resource
                 Tables\Actions\CreateAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -63,5 +92,5 @@ class UserResource extends Resource
             'create' => Pages\CreateUser::route('/create'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
-    }    
+    }
 }
