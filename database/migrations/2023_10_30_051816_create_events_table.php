@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('name')
                 ->nullable(false);
 
-            $table->longTextext('description')
+            $table->longText('description')
                 ->nullable(false);
 
             $table->date('start_date')
