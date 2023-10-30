@@ -66,6 +66,7 @@ class UserResource extends Resource
                 TextColumn::make('id')->label('ID'),
                 TextColumn::make('name'),
                 TextColumn::make('email'),
+                TextColumn::make('position.name'),
 
             ])
             ->filters([

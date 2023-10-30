@@ -10,6 +10,11 @@ class Event extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'allow_registration' => 'boolean',
+        'allow_registration_from_external_students' => 'boolean'
+    ];
+
     public function venues(): HasMany
     {
         return $this->hasMany(Venue::class);
