@@ -22,6 +22,11 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->can('view admin') || $this->isSuperAdmin();
     }
+
+    public function canImpersonate(): bool
+    {
+        return $this->isSuperAdmin();
+    }
     /**
      * The attributes that are mass assignable.
      *
