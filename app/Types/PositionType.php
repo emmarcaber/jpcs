@@ -26,6 +26,7 @@ enum PositionType
     case COMITTEE_PROFESSIONAL_DEVELOPMENT;
     case COMITTEE_CREATIVES;
     case COMITTEE_CORPORATE_RELATIONS;
+    case STUDENT;
 
     public function value(): string
     {
@@ -52,6 +53,7 @@ enum PositionType
             self::COMITTEE_PROFESSIONAL_DEVELOPMENT => 'Member, Committee on Professional Development Projects',
             self::COMITTEE_CREATIVES => 'Member, Committee on Creatives',
             self::COMITTEE_CORPORATE_RELATIONS => 'Member, Committee on Corporate Relations',
+            self::STUDENT => 'Student',
         };
     }
 }

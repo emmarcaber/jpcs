@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Position;
 use App\Models\User;
+use App\Types\PositionType;
 use App\Types\RoleType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -21,7 +23,9 @@ class UserSeeder extends Seeder
             [
                 "name" => "admin",
                 "email" => "admin@jpcscspc.com",
-                "password" => bcrypt("password")
+                "password" => bcrypt("password"),
+                "position_id" => Position::where('name', PositionType::CHAIRMAN->value())->first()->id,
+
             ]
         )->assignRole(RoleType::SUPER_ADMIN->value());
     }

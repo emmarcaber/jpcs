@@ -12,6 +12,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -64,6 +65,7 @@ class UserResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id')->label('ID'),
+                ImageColumn::make('avatar'),
                 TextColumn::make('position.name'),
                 TextColumn::make('name'),
                 TextColumn::make('email'),

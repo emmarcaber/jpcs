@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Event;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,11 +14,9 @@ return new class extends Migration {
     {
         Schema::create('registrations', function (Blueprint $table) {
             $table->id();
-            $table->string('google_id');
-            $table->string('email')->unique()->nullable(false);
-            $table->string('name')->nullable(false);
-            $table->string('avatar')->nullable();
-            $table->string('token');
+            $table->foreignIdFor(Event::class);
+            $table->foreignIdFor(User::class);
+            $table->json('details')->nullable();
             $table->timestamps();
         });
     }
