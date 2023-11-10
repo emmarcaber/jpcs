@@ -1,9 +1,11 @@
 import React from "react";
 
-export default function RegistrationComponent() {
+function RegistrationComponent() {
     return (
-        <div>
-            <h1>Hello World</h1>
-        </div>
-    )
+        <>
+            <a href={route("event.redirect")}>Register</a>
+        </>
+    );
 }
+
+export default RegistrationComponent;

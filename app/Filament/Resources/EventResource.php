@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\EventResource\Pages;
 use App\Filament\Resources\EventResource\RelationManagers;
 use App\Filament\Resources\EventResource\RelationManagers\VenuesRelationManager;
+use App\Filament\Resources\RegistrationResource\RelationManagers\RegistrationsRelationManager;
 use App\Models\Event;
 use Filament\Forms;
 use Filament\Forms\Components\Checkbox;
@@ -126,6 +127,7 @@ class EventResource extends Resource
     {
         return [
             VenuesRelationManager::class,
+            RegistrationsRelationManager::class,
         ];
     }
 

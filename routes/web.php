@@ -24,9 +24,10 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('index');
 
-Route::get('/event/{id}/register', [RegistrationController::class, 'view'])->name('event.register');
+Route::get('/event/{event}/register', [RegistrationController::class, 'redirect'])->name('event.redirect');
+Route::get('/callback/google', [RegistrationController::class, 'callback'])->name('event.callback');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
