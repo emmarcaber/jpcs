@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
                 "name" => "admin",
                 "email" => "admin@jpcscspc.com",
                 "password" => bcrypt("password"),
-                "position_id" => Position::where('name', PositionType::CHAIRMAN->value())->first()->id,
+                "position_id" => Position::where('name', PositionType::SUPER_ADMIN->value())->first()->id,
 
             ]
         )->assignRole(RoleType::SUPER_ADMIN->value());

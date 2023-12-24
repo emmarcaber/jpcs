@@ -2,18 +2,17 @@
 
 namespace App\Policies;
 
-use App\Models\Position;
 use App\Models\User;
 use App\Support\PermissionHelper;
 use Illuminate\Auth\Access\Response;
 
-class PositionPolicy
+class UserPolicy
 {
     private PermissionHelper $helper;
 
     public function __construct()
     {
-        $this->helper = new PermissionHelper('position');
+        $this->helper = new PermissionHelper('user');
     }
 
     /**
@@ -27,7 +26,7 @@ class PositionPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Position $position): bool
+    public function view(User $user, User $model): bool
     {
         return $user->can($this->helper->view());
     }
@@ -43,7 +42,7 @@ class PositionPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Position $position): bool
+    public function update(User $user, User $model): bool
     {
         return $user->can($this->helper->update());
     }
@@ -51,7 +50,7 @@ class PositionPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Position $position): bool
+    public function delete(User $user, User $model): bool
     {
         return $user->can($this->helper->delete());
     }
@@ -59,7 +58,7 @@ class PositionPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Position $position): bool
+    public function restore(User $user, User $model): bool
     {
         return $user->can($this->helper->restore());
     }
@@ -67,7 +66,7 @@ class PositionPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Position $position): bool
+    public function forceDelete(User $user, User $model): bool
     {
         return $user->can($this->helper->forceDelete());
     }

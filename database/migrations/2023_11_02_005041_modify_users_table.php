@@ -20,6 +20,8 @@ return new class extends Migration {
             $table->string('password')
                 ->nullable()
                 ->change();
+
+            $table->softDeletes();
         });
     }
 

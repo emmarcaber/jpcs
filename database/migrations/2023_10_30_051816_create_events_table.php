@@ -30,6 +30,7 @@ return new class extends Migration {
             $table->integer('duration')
                 ->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

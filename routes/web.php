@@ -24,19 +24,28 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-})->name('index');
+})
+    ->name('index');
 
-Route::get('/event/{event}/register', [RegistrationController::class, 'redirect'])->name('event.redirect');
-Route::get('/callback/google', [RegistrationController::class, 'callback'])->name('event.callback');
+Route::get('/event/{event}/register', [RegistrationController::class, 'redirect'])
+    ->name('event.redirect');
+Route::get('/callback/google', [RegistrationController::class, 'callback'])
+    ->name('event.callback');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})
+    ->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [ProfileController::class, 'edit'])
+        ->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])
+        ->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])
+        ->name('profile.destroy');
 });
+
+Route::redirect('/login', '/admin/login');
 
 require __DIR__ . '/auth.php';

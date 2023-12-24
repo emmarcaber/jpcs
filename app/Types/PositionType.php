@@ -4,6 +4,7 @@ namespace App\Types;
 
 enum PositionType
 {
+    case SUPER_ADMIN;
     case CHAIRMAN;
     case PRESIDENT;
     case VICE_INTERNAL;
@@ -31,6 +32,7 @@ enum PositionType
     public function value(): string
     {
         return match ($this) {
+            self::SUPER_ADMIN => 'Super Admin',
             self::CHAIRMAN => 'Chairman',
             self::PRESIDENT => 'President',
             self::VICE_INTERNAL => 'Vice – President for Internal Affairs',
