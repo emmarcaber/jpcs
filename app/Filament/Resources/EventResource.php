@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Log;
 
+// @TODO: Make unique (validation)
 class EventResource extends Resource
 {
     protected static ?string $model = Event::class;
