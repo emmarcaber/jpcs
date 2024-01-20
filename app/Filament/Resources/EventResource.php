@@ -26,6 +26,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rule;
 
 // @TODO: Make unique (validation)
 class EventResource extends Resource
@@ -41,8 +42,10 @@ class EventResource extends Resource
                 Grid::make(3)->schema([
                     TextInput::make('name')
                         ->placeholder('Event Name')
-                        ->rules(['required', 'min:5', 'max:255']),
-
+                        ->required()
+                        ->minLength(5)
+                        ->maxLength(255)
+                        ->unique(ignoreRecord: true),
                     // TODO: Make start date not be in conflict with the start date of any other events
                     DatePicker::make('start_date')
                         ->minDate(now())

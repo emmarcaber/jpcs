@@ -31,25 +31,21 @@ class UserResource extends Resource
             ->schema([
                 TextInput::make('email')
                     ->rules([
-                        'required',
-                        'min:10',
-                        'max:255',
                         'exclude:users,email'
-                    ]),
+                    ])
+                    ->required()
+                    ->minLength(10)
+                    ->maxLength(255),
 
                 TextInput::make('name')
-                    ->rules([
-                        'required',
-                        'min:5',
-                        'max:255',
-                    ]),
+                    ->required()
+                    ->minLength(5)
+                    ->maxLength(255),
 
                 TextInput::make('password')
-                    ->rules([
-                        'min:8',
-                        'max:255',
-                        'nullable'
-                    ])
+                    ->nullable()
+                    ->minLength(5)
+                    ->maxLength(255)
                     ->dehydrated(fn($state) => filled($state))
                     ->dehydrateStateUsing(fn($state) => bcrypt($state))
                     ->password(),
@@ -58,6 +54,7 @@ class UserResource extends Resource
                     ->searchable()
                     ->preload()
                     ->relationship('position', 'name')
+                    ->required(),
             ]);
     }
 

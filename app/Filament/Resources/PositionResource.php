@@ -29,7 +29,10 @@ class PositionResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')->rules(['required', 'min:5', 'max:255']),
+                TextInput::make('name')
+                    ->required()
+                    ->minLength(5)
+                    ->maxLength(255),
             ]);
     }
 
