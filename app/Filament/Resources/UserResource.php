@@ -44,7 +44,7 @@ class UserResource extends Resource
 
                 TextInput::make('password')
                     ->nullable()
-                    ->minLength(5)
+                    ->minLength(8)
                     ->maxLength(255)
                     ->dehydrated(fn($state) => filled($state))
                     ->dehydrateStateUsing(fn($state) => bcrypt($state))
