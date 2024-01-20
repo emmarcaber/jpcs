@@ -2,23 +2,22 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\RegistrationResource\Pages;
-use App\Filament\Resources\RegistrationResource\RelationManagers;
-use App\Models\Registration;
+use App\Filament\Resources\VenueOfficerResource\Pages;
+use App\Filament\Resources\VenueOfficerResource\RelationManagers;
+use App\Models\VenueOfficer;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class RegistrationResource extends Resource
+class VenueOfficerResource extends Resource
 {
-    protected static ?string $model = Registration::class;
+    protected static ?string $model = VenueOfficer::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -26,12 +25,13 @@ class RegistrationResource extends Resource
     {
         return $form
             ->schema([
+                Select::make('venue_id')
+                    ->relationship('venue', 'name')
+                    ->required(),
                 Select::make('user_id')
                     ->relationship('user', 'name')
-                    ->required(),
-                Select::make('event_id')
-                    ->relationship('event', 'name')
-                    ->required(),
+                    ->label('Officer')
+                    ->required()
             ]);
     }
 
@@ -39,21 +39,23 @@ class RegistrationResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')
-                    ->label("ID"),
+                TextColumn::make('venue.name'),
                 TextColumn::make('user.name'),
-                TextColumn::make('event.name'),
+                TextColumn::make('venue.event.name'),
             ])
             ->filters([
-                //
+                Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                DeleteAction::make(),
+                Tables\Actions\RestoreAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\ForceDeleteBulkAction::make(),
+                    Tables\Actions\RestoreBulkAction::make(),
                 ]),
             ])
             ->emptyStateActions([
@@ -71,9 +73,17 @@ class RegistrationResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListRegistrations::route('/'),
-            'create' => Pages\CreateRegistration::route('/create'),
-            'edit' => Pages\EditRegistration::route('/{record}/edit'),
+            'index' => Pages\ListVenueOfficers::route('/'),
+            'create' => Pages\CreateVenueOfficer::route('/create'),
+            'edit' => Pages\EditVenueOfficer::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
     }
 }

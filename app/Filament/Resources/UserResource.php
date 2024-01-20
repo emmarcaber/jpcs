@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Filament\Resources\UserResource\RelationManagers\RolesRelationManager;
+use App\Filament\Resources\VenueResource\RelationManagers\VenueRelationManager;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
@@ -92,6 +93,7 @@ class UserResource extends Resource
     {
         return [
             RolesRelationManager::class,
+            VenueRelationManager::class,
         ];
     }
 
